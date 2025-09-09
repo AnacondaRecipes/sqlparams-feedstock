@@ -38,8 +38,7 @@ test:
 about:
   home: https://pypi.org/project/sqlparams
   summary: Convert between various DB API 2.0 parameter styles.
-  description: |
-    sqlparams is a utility package for converting between various SQL parameter styles.
+  description: sqlparams is a utility package for converting between various SQL parameter styles.
   license: MIT
   license_family: MIT
   license_file: LICENSE
