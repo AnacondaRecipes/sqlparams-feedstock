@@ -6,36 +6,44 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sqlparams-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 3744a2ad16f71293db6505b21fd5229b4757489a9b09f3553656a1ae97ba7ca5
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<38]
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - pip
-    - setuptools
+    - wheel
+    - setuptools >=40.8.0
   run:
-    - python >={{ python_min }}
+    - python
 
 test:
+  source_files:
+    - tests
   imports:
     - sqlparams
   commands:
     - pip check
+    - pytest -v tests
   requires:
     - pip
-    - python {{ python_min }}
+    - pytest
 
 about:
-  home: https://pypi.org/project/sqlparams/
+  home: https://pypi.org/project/sqlparams
   summary: Convert between various DB API 2.0 parameter styles.
+  description: sqlparams is a utility package for converting between various SQL parameter styles.
   license: MIT
+  license_family: MIT
   license_file: LICENSE
+  doc_url: https://github.com/cpburnz/python-sqlparams/blob/v6.2.0/README.rst
+  dev_url: https://github.com/cpburnz/python-sqlparams
 
 extra:
   recipe-maintainers:
